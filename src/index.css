@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+:root {
+  --auron-blue: #4a90c2;
+  --auron-blue-dark: #3b7aa8;
+  --auron-purple: #8e7cc3;
+  --auron-bg: #0b0d1a;
+  --auron-card: #f4f5f9;
+  --auron-text: #1d1d27;
+  --auron-muted: #8b8b98;
+  --auron-font: 'Poppins', sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--auron-bg);
+  color: var(--auron-text);
+  font-family: var(--auron-font);
+}
