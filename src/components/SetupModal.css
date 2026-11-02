@@ -1,0 +1,40 @@
+/* Let the Stepper be the card instead of the default white modal box */
+.setup-modal-content {
+  background: transparent;
+  border: none;
+}
+
+.setup-heading {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.setup-text {
+  color: var(--auron-muted);
+  font-size: 14px;
+}
+
+/* The two daily budget choices */
+.setup-option {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+  padding: 14px;
+  border: 2px solid #e3e3ea;
+  border-radius: 14px;
+  background: #fff;
+  color: var(--auron-text);
+  text-align: left;
+}
+
+.setup-option span {
+  color: var(--auron-muted);
+  font-size: 13px;
+}
+
+.setup-option.selected {
+  border-color: var(--auron-blue);
+  background: rgba(74, 144, 194, 0.08);
+}

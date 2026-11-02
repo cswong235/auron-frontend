@@ -1,0 +1,114 @@
+/* The strip of days. row-reverse puts the first day in the list (the newest)
+   on the right, so the list grows to the left as older months load */
+.day-scroller {
+  display: flex;
+  flex-direction: row-reverse;
+  overflow-x: auto;
+  color: #fff;
+}
+
+/* Each day takes a fifth of the width, so 5 days fit on screen */
+.day-column,
+.day-loading {
+  flex: 0 0 20%;
+}
+
+/* Two days' worth of empty space at each end,
+   so the first and last days can still sit in the middle */
+.day-spacer {
+  flex: 0 0 40%;
+}
+
+.day-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 4px;
+  text-align: center;
+}
+
+.day-column.selected {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+}
+
+.day-amount {
+  color: var(--auron-muted);
+  font-size: 14px;
+}
+
+.day-amount.negative {
+  color: #e57373;
+}
+
+.day-box {
+  width: 56px;
+  height: 56px;
+  margin: 8px 0;
+  border: 1px solid var(--auron-muted);
+  border-radius: 12px;
+  background: transparent;
+  color: #fff;
+  font-size: 24px;
+}
+
+.day-column.selected .day-box {
+  border-color: var(--auron-blue);
+  background: var(--auron-blue);
+}
+
+.day-month {
+  color: var(--auron-muted);
+  font-size: 13px;
+}
+
+.day-big-amount {
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.day-muted {
+  color: var(--auron-muted);
+  font-size: 13px;
+}
+
+.day-actions {
+  margin-top: 16px;
+}
+
+.day-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--auron-muted);
+}
+
+/* Mobile panel under the strip */
+.day-details-mobile {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  text-align: center;
+}
+
+/* Desktop: the selected day shows the big amount, so hide its small one */
+@media (min-width: 768px) {
+  .day-column.selected .day-amount {
+    display: none;
+  }
+}
+
+/* Mobile: smaller boxes so 5 days fit across a phone */
+@media (max-width: 767px) {
+  .day-box {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+
+  .day-amount {
+    font-size: 11px;
+  }
+}

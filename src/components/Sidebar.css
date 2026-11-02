@@ -1,0 +1,48 @@
+/* Desktop: the thin rail that stays on the left of the page */
+.sidebar-rail {
+  flex: 0 0 40px;
+  align-items: center;
+  justify-content: center;
+  min-height: 90vh;
+}
+
+/* The round >> and << buttons */
+.sidebar-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--auron-muted);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+}
+
+/* Bootstrap's offcanvas is 400px wide by default */
+.sidebar {
+  --bs-offcanvas-width: 260px;
+  border-radius: 0 24px 24px 0;
+}
+
+.sidebar-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-body .nav-link {
+  padding: 8px 0;
+  color: #fff;
+}
+
+.sidebar-body .nav-link.active {
+  color: var(--auron-blue);
+}
+
+/* The << button sits halfway down the right edge, like the wireframe */
+.sidebar-close {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+}

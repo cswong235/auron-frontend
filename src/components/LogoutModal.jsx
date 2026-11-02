@@ -19,20 +19,20 @@ export default function LogoutModal() {
 
   return (
     <>
-      <Button variant="fs-red" size="sm" className="me-2" onClick={handleShow}>
+      <Button variant="outline-danger" size="sm" onClick={handleShow}>
         Log out
       </Button>
 
-      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} centered contentClassName="fs-modal">
-        <Modal.Header closeButton closeVariant="white">
+      <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false} centered>
+        <Modal.Header closeButton>
           <Modal.Title>Leave Auron?</Modal.Title>
         </Modal.Header>
         <Modal.Body>Are you sure you want to log out?</Modal.Body>
         <Modal.Footer>
-          <Button variant="fs-silver" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="fs-red" onClick={handleLogOut}>
+          <Button variant="danger" onClick={handleLogOut}>
             Log out
           </Button>
         </Modal.Footer>
