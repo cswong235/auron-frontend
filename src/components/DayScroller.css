@@ -76,6 +76,30 @@
   margin-top: 16px;
 }
 
+/* One of the selected day's latest expenses */
+.day-expense-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 13px;
+  text-align: left;
+}
+
+.day-expense-amount {
+  color: var(--auron-muted);
+  white-space: nowrap;
+}
+
+/* The v button that opens all of a day's expenses */
+.day-expand {
+  margin-top: 4px;
+  padding: 4px;
+  border: none;
+  background: transparent;
+  color: var(--auron-muted);
+}
+
 .day-loading {
   display: flex;
   align-items: center;

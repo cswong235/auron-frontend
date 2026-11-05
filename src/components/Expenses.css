@@ -1,0 +1,113 @@
+.expense-title {
+  font-size: 18px;
+}
+
+.expense-label {
+  margin-bottom: 8px;
+  color: var(--auron-muted);
+  font-size: 14px;
+}
+
+/* Keeps the currency dropdown small so the amount gets most of the space */
+.expense-currency {
+  flex: 0 0 96px;
+}
+
+/* The two deduction method choices */
+.expense-option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+  padding: 14px;
+  border: 2px solid #e3e3ea;
+  border-radius: 14px;
+  background: #fff;
+  color: var(--auron-text);
+  text-align: center;
+}
+
+.expense-option span {
+  color: var(--auron-muted);
+  font-size: 13px;
+}
+
+.expense-option.selected {
+  border-color: var(--auron-blue);
+  background: rgba(74, 144, 194, 0.08);
+}
+
+.expense-option:disabled {
+  opacity: 0.5;
+}
+
+.expense-option-tick {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: var(--auron-blue);
+}
+
+/* One expense in the list */
+.expense-card {
+  margin-bottom: 8px;
+  padding: 10px 12px;
+  border: 1px solid #e3e3ea;
+  border-radius: 12px;
+  overflow-wrap: anywhere;
+}
+
+.expense-card-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.expense-card-buttons {
+  display: flex;
+  flex-shrink: 0;
+  gap: 4px;
+}
+
+.expense-tag {
+  margin-left: 6px;
+  padding: 1px 6px;
+  border: 1px solid var(--auron-muted);
+  border-radius: 6px;
+  color: var(--auron-muted);
+  font-size: 11px;
+}
+
+.expense-description {
+  margin: 2px 0;
+  color: var(--auron-muted);
+  font-size: 13px;
+}
+
+.expense-time {
+  color: var(--auron-muted);
+  font-size: 12px;
+}
+
+.expense-amount {
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.expense-icon-button {
+  padding: 2px;
+  border: none;
+  background: transparent;
+  color: var(--auron-text);
+}
+
+/* Greyed out once the expense's day is over */
+.expense-icon-button:disabled {
+  color: var(--auron-muted);
+  opacity: 0.4;
+}

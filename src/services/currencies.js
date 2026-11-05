@@ -20,7 +20,10 @@ export function currencySymbol(code) {
 
 // Formats an amount with its symbol, e.g. formatMoney("-5", "RM") gives "-RM5.00"
 export function formatMoney(amount, symbol) {
+  // Ensure the amount is actually a number
   const value = Number(amount);
+  // Add a negative sign if the amount is below 0
   const sign = value < 0 ? '-' : '';
+  // Return a formatted amount with currency and 2 decimal places
   return `${sign}${symbol}${Math.abs(value).toFixed(2)}`;
 }
