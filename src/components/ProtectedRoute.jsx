@@ -6,7 +6,7 @@ export default function ProtectedRoute() {
   const location = useLocation();
 
   if (loading) {
-    return <p className="fs-muted text-center mt-5">Loading...</p>;
+    return <p className="text-secondary text-center mt-5">Loading...</p>;
   }
 
   // Not logged in: send them to /login, remembering where they were headed

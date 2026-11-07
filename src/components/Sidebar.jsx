@@ -5,13 +5,8 @@ import { ArrowLeftDoubleIcon, ArrowRightDoubleIcon } from '@hugeicons/core-free-
 import LogoutModal from './LogoutModal';
 import './Sidebar.css';
 
-// The pages in the sidebar, in the same order as the wireframe
 const LINKS = [
-  { to: '/wishlist', label: 'Wishlist' },
-  { to: '/statistics', label: 'Statistics' },
-  { to: '/friends', label: 'Friends' },
   { to: '/currency-rates', label: 'Currency rates' },
-  { to: '/settings', label: 'Settings' },
 ];
 
 export default function Sidebar({ show, onOpen, onClose }) {

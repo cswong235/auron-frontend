@@ -1,0 +1,42 @@
+.rates-title {
+  margin-bottom: 16px;
+  font-size: 28px;
+}
+
+.rates-date {
+  margin-bottom: 12px;
+  color: var(--auron-muted);
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.rate-card {
+  height: 100%;
+  text-align: center;
+}
+
+.rate-card .card-body {
+  padding: 12px 8px;
+}
+
+.rate-code {
+  color: var(--auron-muted);
+  font-size: 13px;
+}
+
+.rate-value {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.rate-name {
+  color: var(--auron-muted);
+  font-size: 11px;
+}
+
+.converter-result {
+  margin: 16px 0 0;
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+}

@@ -1,3 +1,7 @@
+.app-layout {
+  color: #fff;
+}
+
 .app-header {
   display: flex;
   align-items: center;

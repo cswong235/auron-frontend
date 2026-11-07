@@ -143,6 +143,7 @@ export default function ExpenseFormModal({ token, day, expense, displayCurrency,
             <Form.Label visuallyHidden>Amount</Form.Label>
             <InputGroup>
               <Form.Select
+                id="expenseCurrency"
                 className="expense-currency"
                 aria-label="Currency"
                 value={currency}

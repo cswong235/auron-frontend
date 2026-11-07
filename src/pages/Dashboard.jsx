@@ -37,7 +37,7 @@ export default function Dashboard() {
     <>
       {loading && <p>Loading...</p>}
       {error && <Alert variant="danger">{error}</Alert>}
-      {plan && <DayScroller token={token} currency={plan.allowance_input_currency} />}
+      {plan && <DayScroller token={token} currency="MYR" />}
 
       {/* If there's no plan for the month yet, show the setup.
           It's only added once loading is done, so it can start with the last allowance filled in */}

@@ -7,9 +7,8 @@ import { apiFetch, todayString } from '../services/helpers';
 import { currencySymbol, formatMoney } from '../services/currencies';
 import ExpenseFormModal from './ExpenseFormModal';
 import ExpenseListModal from './ExpenseListModal';
+import IncomeFormModal from './IncomeFormModal';
 import './DayScroller.css';
-
-// The big "RM30.00 remaining" for the selected day
 function BigRemaining({ day, symbol }) {
   return (
     <div className="day-big">
@@ -21,16 +20,16 @@ function BigRemaining({ day, symbol }) {
 
 // The selected day's latest 3 expenses, with a button to open all of them
 // expenses is undefined until they've loaded
-function DayExpenses({ expenses, symbol, isToday, onAddExpense, onOpenList }) {
+function DayExpenses({ expenses, symbol, isToday, onAddExpense, onAddIncome, onOpenList }) {
   const latestExpenses = expenses ? expenses.slice(0, 3) : [];
 
   return (
     <div className="day-actions">
-      {/* Only on today that a user can add income or expenses for the day */}
+      {/* The user can only add expenses for today */}
       {isToday && (
         <div className="d-flex gap-2 justify-content-center">
           <Button variant="outline-light" size="sm" onClick={onAddExpense}>Expense</Button>
-          <Button variant="outline-light" size="sm">Income</Button>
+          <Button variant="outline-light" size="sm" onClick={onAddIncome}>Income</Button>
         </div>
       )}
 
@@ -67,6 +66,7 @@ export default function DayScroller({ token, currency }) {
   const [showForm, setShowForm] = useState(false);
   // The expense being edited. It stays null when adding a new one
   const [editingExpense, setEditingExpense] = useState(null);
+  const [showIncomeForm, setShowIncomeForm] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
@@ -110,7 +110,7 @@ export default function DayScroller({ token, currency }) {
       .catch((err) => setError(err.message));
   }
 
-  // After an expense changes, reload today's expenses and this month's days
+  // After an expense changes or an income is added, reload today's expenses and this month's days
   // Older months can't have changed, so they stay as they are
   function refreshAfterChange() {
     fetchExpenses(todayRow.id);
@@ -141,6 +141,11 @@ export default function DayScroller({ token, currency }) {
 
   function handleFormSaved() {
     closeForm();
+    refreshAfterChange();
+  }
+
+  function handleIncomeSaved() {
+    setShowIncomeForm(false);
     refreshAfterChange();
   }
 
@@ -191,6 +196,7 @@ export default function DayScroller({ token, currency }) {
       symbol={symbol}
       isToday={selectedDay.date === today}
       onAddExpense={openAddForm}
+      onAddIncome={() => setShowIncomeForm(true)}
       onOpenList={() => setListDate(selectedDay.date)}
     />
   );
@@ -260,7 +266,6 @@ export default function DayScroller({ token, currency }) {
         })}
       </InfiniteScroll>
 
-      {/* Mobile: the selected day's details go under the strip instead */}
       {selectedDay && (
         <div className="day-details-mobile d-md-none">
           <BigRemaining day={selectedDay} symbol={symbol} />
@@ -277,6 +282,17 @@ export default function DayScroller({ token, currency }) {
           symbol={symbol}
           onClose={closeForm}
           onSaved={handleFormSaved}
+        />
+      )}
+
+      {showIncomeForm && (
+        <IncomeFormModal
+          token={token}
+          day={todayRow}
+          displayCurrency={currency}
+          symbol={symbol}
+          onClose={() => setShowIncomeForm(false)}
+          onSaved={handleIncomeSaved}
         />
       )}
 

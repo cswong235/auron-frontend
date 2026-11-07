@@ -18,6 +18,14 @@ export function currencySymbol(code) {
   return currency ? currency.symbol : code;
 }
 
+// Converts an amount through MYR
+// Each rate is how much of that currency 1 MYR buys
+// Ex: to convert USD to EUR, first convert USD to MYR, then MYR to EUR
+export function convertCurrency(amount, fromRate, toRate) {
+  const amountInMyr = amount / fromRate;
+  return amountInMyr * toRate;
+}
+
 // Formats an amount with its symbol, e.g. formatMoney("-5", "RM") gives "-RM5.00"
 export function formatMoney(amount, symbol) {
   // Ensure the amount is actually a number
