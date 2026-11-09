@@ -28,6 +28,7 @@ export default function CurrencyRates() {
 
   // Match each currency in the app with its rate
   const currencies = [];
+  let ratesDate = '';
   for (const currency of CURRENCIES) {
     const found = rates.find((rate) => rate.currency === currency.code);
     if (found) {
@@ -37,11 +38,11 @@ export default function CurrencyRates() {
         symbol: currency.symbol,
         rate: Number(found.rate),
       });
+      if (currency.code !== 'MYR') {
+        ratesDate = found.rate_date;
+      }
     }
   }
-
-  // Find the latest rates for each currency that's not M
-  const latestRate = rates.find((rate) => rate.currency !== 'MYR');
 
   return (
     <>
@@ -54,7 +55,7 @@ export default function CurrencyRates() {
           <Card className="mb-3">
             <Card.Body>
               <Card.Title>1 MYR is worth</Card.Title>
-              {latestRate && <Card.Subtitle className="rates-date">Rates from {latestRate.rate_date}</Card.Subtitle>}
+              {ratesDate && <Card.Subtitle className="rates-date">Rates from {ratesDate}</Card.Subtitle>}
 
               <Row xs={2} md={5} className="g-2">
                 {currencies.map((currency) => (

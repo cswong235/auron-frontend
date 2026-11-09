@@ -10,6 +10,7 @@ vi.mock('../services/helpers', () => ({ apiFetch: vi.fn() }))
 test('shows a card with the rate for each currency', async () => {
   apiFetch.mockResolvedValue([
     { currency: 'MYR', rate: '1.00000000', rate_date: '2026-11-04' },
+    { currency: 'BRL', rate: '1.34480000', rate_date: '2026-11-04' },
     { currency: 'SGD', rate: '0.31444000', rate_date: '2026-11-06' },
     { currency: 'IDR', rate: '4460.90000000', rate_date: '2026-11-06' },
   ])

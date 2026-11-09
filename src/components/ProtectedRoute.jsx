@@ -9,11 +9,9 @@ export default function ProtectedRoute() {
     return <p className="text-secondary text-center mt-5">Loading...</p>;
   }
 
-  // Not logged in: send them to /login, remembering where they were headed
   if (!session) {
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
-  // Logged in: render whichever child route matched
   return <Outlet />;
 }

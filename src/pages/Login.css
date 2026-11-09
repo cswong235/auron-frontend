@@ -20,7 +20,7 @@
 .login-card {
   position: relative;
   width: 100%;
-  max-width: 1000px;
+  max-width: 500px;
   padding: 16px;
   border: 1px solid var(--glass-border);
   border-radius: 32px;

@@ -69,7 +69,7 @@ export default function Login() {
 
       <Card className="login-card">
         <Row className="g-0">
-          <Col md={6} className="login-form-side">
+          <Col className="login-form-side">
             <div className="login-logo">AURON</div>
             <h1 className="login-title">{mode === 'signup' ? 'Create an account' : 'Welcome back!'}</h1>
             <p className="login-subtitle">
@@ -116,10 +116,6 @@ export default function Login() {
             <Button variant="link" className="login-toggle w-100" type="button" onClick={toggleMode}>
               {mode === 'signup' ? 'Already have an account? Log in' : "Don't have an account? Sign up"}
             </Button>
-          </Col>
-
-          <Col md={6} className="d-none d-md-block">
-            <div className="login-image"></div>
           </Col>
         </Row>
       </Card>

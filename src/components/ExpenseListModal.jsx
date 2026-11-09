@@ -6,7 +6,6 @@ import { apiFetch } from '../services/helpers';
 import { formatMoney } from '../services/currencies';
 import './Expenses.css';
 
-// Shows all of a day's expenses. They can only be edited or deleted on today
 export default function ExpenseListModal({ token, day, isToday, symbol, onClose, onEdit, onChanged }) {
   const [expenses, setExpenses] = useState([]);
   const [error, setError] = useState('');
@@ -61,11 +60,9 @@ export default function ExpenseListModal({ token, day, isToday, symbol, onClose,
               <div>
                 <strong>{expense.name}</strong>
                 <span className="expense-tag">{expense.category_name}</span>
-                {/* The full amount won't match what left this day, so point out that it was split */}
                 {expense.deduction_option === 'spread' && <span className="expense-tag">Spread</span>}
               </div>
 
-              {/* Greyed out once the day is over, since the expense is locked */}
               <div className="expense-card-buttons">
                 <button
                   type="button"
