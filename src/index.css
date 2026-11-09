@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+@font-face {
+  font-family: 'Qurova';
+  src: url('./assets/qurova-demo.regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   --auron-blue: #4a90c2;
@@ -9,6 +17,28 @@
   --auron-text: #1d1d27;
   --auron-muted: #8b8b98;
   --auron-font: 'Poppins', sans-serif;
+  --logo-font: 'Qurova', 'Poppins', sans-serif;
+
+  --auron-gradient: linear-gradient(135deg, #5b9fd6 0%, #8e7cc3 100%);
+  --auron-glow: 0 10px 30px -10px rgba(142, 124, 195, 0.8);
+
+  --glass-bg: rgba(255, 255, 255, 0.07);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-blur: blur(16px);
+  --glass-dark-bg: rgba(20, 22, 40, 0.6);
+  --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 24px 48px -24px rgba(0, 0, 0, 0.2);
+
+  --screen-height: 100vh;
+}
+
+@media (min-width: 1400px) {
+  html {
+    zoom: 1.4;
+  }
+
+  :root {
+    --screen-height: calc(100vh / 1.4);
+  }
 }
 
 body {
@@ -16,4 +46,181 @@ body {
   background: var(--auron-bg);
   color: var(--auron-text);
   font-family: var(--auron-font);
+}
+
+::selection {
+  background: rgba(142, 124, 195, 0.55);
+  color: #fff;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 0% center;
+  }
+  to {
+    background-position: 200% center;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 rgba(74, 144, 194, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(74, 144, 194, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(74, 144, 194, 0);
+  }
+}
+
+@keyframes drift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.page-transition {
+  animation: rise-in 0.5s ease both;
+}
+
+.modal {
+  --bs-modal-header-border-color: var(--glass-border);
+  --bs-modal-footer-border-color: var(--glass-border);
+}
+
+.modal.fade .modal-dialog {
+  transform: scale(0.94) translateY(12px);
+  transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+.modal.show .modal-dialog {
+  transform: none;
+}
+
+.modal-backdrop.show {
+  opacity: 0.55;
+}
+
+.modal-content {
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  background: var(--glass-dark-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+}
+
+.app-layout .card {
+  --bs-card-bg: var(--glass-bg);
+  --bs-card-border-color: var(--glass-border);
+  --bs-card-border-radius: 20px;
+  --bs-card-inner-border-radius: 19px;
+  --bs-card-cap-bg: rgba(255, 255, 255, 0.04);
+  --bs-card-color: #fff;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+}
+
+.app-layout .form-control,
+.app-layout .form-select,
+.app-layout .input-group-text,
+.modal .form-control,
+.modal .form-select,
+.modal .input-group-text {
+  border-color: var(--glass-border);
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.app-layout .form-control:focus,
+.app-layout .form-select:focus,
+.modal .form-control:focus,
+.modal .form-select:focus {
+  border-color: rgba(127, 193, 240, 0.8);
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 4px rgba(74, 144, 194, 0.25);
+  color: #fff;
+}
+
+.app-layout .form-control::placeholder,
+.modal .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.app-layout .form-control:disabled,
+.app-layout .form-select:disabled,
+.modal .form-control:disabled,
+.modal .form-select:disabled {
+  background-color: rgba(255, 255, 255, 0.03);
+  opacity: 0.6;
+}
+
+.form-select option {
+  background: #1a1c2e;
+  color: #fff;
+}
+
+.btn {
+  --bs-btn-border-radius: 12px;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btn-primary {
+  --bs-btn-border-color: transparent;
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-active-border-color: transparent;
+  --bs-btn-disabled-border-color: transparent;
+  background-image: var(--auron-gradient);
+  box-shadow: var(--auron-glow);
+}
+
+.btn-primary:hover:not(:disabled) {
+  filter: brightness(1.12);
+  transform: translateY(-1px);
+}
+
+.modal .btn-outline-secondary,
+.app-layout .btn-outline-secondary {
+  --bs-btn-color: #fff;
+  --bs-btn-border-color: var(--glass-border);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: rgba(255, 255, 255, 0.1);
+  --bs-btn-hover-border-color: rgba(255, 255, 255, 0.35);
+  background-color: rgba(255, 255, 255, 0.04);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
 }

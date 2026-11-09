@@ -1,0 +1,32 @@
+.loading-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(var(--screen-height) - 160px);
+}
+
+.loading-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 32px 48px;
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
+  color: #fff;
+  animation: rise-in 0.4s ease both;
+}
+
+.loading-card .spinner-border {
+  color: #7fc1f0;
+  filter: drop-shadow(0 0 10px rgba(127, 193, 240, 0.8));
+}
+
+.loading-text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+}

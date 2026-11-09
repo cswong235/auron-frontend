@@ -4,6 +4,7 @@ import { apiFetch, todayString } from '../services/helpers';
 import { useAuth } from '../context/AuthContext';
 import SetupModal from '../components/SetupModal';
 import DayScroller from '../components/DayScroller';
+import LoadingCard from '../components/LoadingCard';
 
 export default function Dashboard() {
   const { session } = useAuth();
@@ -35,8 +36,12 @@ export default function Dashboard() {
 
   return (
     <>
-      {loading && <p>Loading...</p>}
-      {error && <Alert variant="danger">{error}</Alert>}
+      {loading && (
+        <div className="dashboard-message">
+          <LoadingCard text="Loading..." />
+        </div>
+      )}
+      {error && <Alert variant="danger" className="dashboard-message">{error}</Alert>}
       {plan && <DayScroller token={token} currency="MYR" />}
 
       {/* If there's no plan for the month yet, show the setup.

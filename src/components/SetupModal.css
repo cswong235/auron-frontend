@@ -2,6 +2,14 @@
 .setup-modal-content {
   background: transparent;
   border: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.setup-stepper {
+  border-radius: 24px;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
 }
 
 .setup-heading {
@@ -10,7 +18,7 @@
 }
 
 .setup-text {
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 14px;
 }
 
@@ -22,19 +30,24 @@
   width: 100%;
   height: 100%;
   padding: 14px;
-  border: 2px solid #e3e3ea;
+  border: 1px solid var(--glass-border);
   border-radius: 14px;
-  background: #fff;
-  color: var(--auron-text);
+  background: var(--glass-bg);
+  color: #fff;
   text-align: left;
 }
 
 .setup-option span {
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 13px;
 }
 
+.setup-option:hover {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
 .setup-option.selected {
-  border-color: var(--auron-blue);
-  background: rgba(74, 144, 194, 0.08);
+  border-color: #7fc1f0;
+  background: rgba(74, 144, 194, 0.2);
+  box-shadow: 0 0 0 3px rgba(74, 144, 194, 0.25), 0 10px 24px -12px rgba(127, 193, 240, 0.7);
 }

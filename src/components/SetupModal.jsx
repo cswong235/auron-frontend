@@ -81,7 +81,9 @@ export default function SetupModal({ token, previous, onDone }) {
       <Stepper
         step={step}
         onStepChange={setStep}
-        theme="light"
+        theme="dark"
+        className="setup-stepper"
+        style={{ '--stepper-frame': 'rgba(20, 22, 40, 0.6)', '--stepper-frame-edge': 'rgba(255, 255, 255, 0.16)' }}
         accentColor="#4a90c2"
         width="100%"
         disableStepIndicators

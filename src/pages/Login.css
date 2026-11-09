@@ -1,7 +1,7 @@
 /* Full screen page with the card in the middle */
 .login-page {
   position: relative;
-  min-height: 100vh;
+  min-height: var(--screen-height);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,10 +22,13 @@
   width: 100%;
   max-width: 1000px;
   padding: 16px;
-  border: none;
+  border: 1px solid var(--glass-border);
   border-radius: 32px;
-  background: var(--auron-card);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  background: var(--glass-dark-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow), 0 30px 80px -30px rgba(0, 0, 0, 0.7);
+  color: #fff;
 }
 
 .login-form-side {
@@ -36,9 +39,16 @@
 }
 
 .login-logo {
-  color: var(--auron-blue);
+  background: linear-gradient(90deg, #7fc1f0, #b7a6ff, #7fc1f0);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 0 12px rgba(127, 193, 240, 0.4));
+  animation: shimmer 6s linear infinite;
+  font-family: var(--logo-font);
   font-size: 32px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 6px;
   text-align: center;
   margin-bottom: 16px;
@@ -52,7 +62,7 @@
 }
 
 .login-subtitle {
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 14px;
   text-align: center;
   margin-bottom: 28px;
@@ -60,9 +70,22 @@
 
 .login-card .form-control {
   padding: 14px 18px;
-  border: none;
+  border: 1px solid var(--glass-border);
   border-radius: 12px;
-  background: #fff;
+  background-color: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.login-card .form-control:focus {
+  border-color: rgba(127, 193, 240, 0.8);
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 0 4px rgba(74, 144, 194, 0.25);
+  color: #fff;
+}
+
+.login-card .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .login-submit {
@@ -70,12 +93,13 @@
   padding: 12px;
   border: none;
   border-radius: 12px;
-  background: var(--auron-blue);
-  box-shadow: 0 8px 20px rgba(74, 144, 194, 0.35);
+  background: var(--auron-gradient);
+  box-shadow: 0 10px 24px -6px rgba(142, 124, 195, 0.6);
 }
 
 .login-submit:hover {
-  background: var(--auron-blue-dark);
+  background: var(--auron-gradient);
+  filter: brightness(1.1);
 }
 
 /* "Or continue with" with a line on each side */
@@ -84,7 +108,7 @@
   align-items: center;
   gap: 12px;
   margin: 24px 0 16px;
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.6);
   font-size: 14px;
 }
 
@@ -93,26 +117,31 @@
   content: '';
   flex: 1;
   height: 1px;
-  background: #dcdce3;
+  background: rgba(255, 255, 255, 0.18);
 }
 
 .login-google {
   padding: 12px;
-  border: 1px solid #e3e3ea;
+  border: 1px solid var(--glass-border);
   border-radius: 12px;
-  background: #fff;
-  color: var(--auron-text);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
 }
 
 .login-google:hover {
-  background: #f0f0f5;
-  color: var(--auron-text);
+  border-color: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
 }
 
 .login-toggle {
   margin-top: 12px;
-  color: var(--auron-blue);
+  color: #7fc1f0;
   font-size: 14px;
+}
+
+.login-toggle:hover {
+  color: #b7a6ff;
 }
 
 /* Put your picture at public/login-image.jpg */

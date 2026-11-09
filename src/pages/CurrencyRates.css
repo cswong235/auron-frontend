@@ -1,11 +1,16 @@
 .rates-title {
   margin-bottom: 16px;
-  font-size: 28px;
+  background: linear-gradient(90deg, #ffffff, #b9c8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 32px;
+  font-weight: 600;
 }
 
 .rates-date {
   margin-bottom: 12px;
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 13px;
   font-weight: 400;
 }
@@ -13,6 +18,13 @@
 .rate-card {
   height: 100%;
   text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rate-card:hover {
+  --bs-card-border-color: rgba(127, 193, 240, 0.6);
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -16px rgba(127, 193, 240, 0.7);
 }
 
 .rate-card .card-body {
@@ -20,7 +32,7 @@
 }
 
 .rate-code {
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 13px;
 }
 
@@ -30,13 +42,18 @@
 }
 
 .rate-name {
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 11px;
 }
 
 .converter-result {
-  margin: 16px 0 0;
-  font-size: 22px;
+  margin: 20px 0 0;
+  background: linear-gradient(90deg, #7fc1f0, #b7a6ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 4px 18px rgba(127, 193, 240, 0.35));
+  font-size: 30px;
   font-weight: 600;
   text-align: center;
 }

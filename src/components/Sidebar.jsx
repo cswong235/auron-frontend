@@ -1,21 +1,59 @@
+import { useState } from 'react';
 import { Nav, Offcanvas } from 'react-bootstrap';
 import { Link, NavLink } from 'react-router-dom';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { ArrowLeftDoubleIcon, ArrowRightDoubleIcon } from '@hugeicons/core-free-icons';
+import {
+  ArrowLeftDoubleIcon,
+  ArrowRightDoubleIcon,
+  DashboardSquare01Icon,
+  MoneyExchange01Icon,
+} from '@hugeicons/core-free-icons';
 import LogoutModal from './LogoutModal';
 import './Sidebar.css';
 
 const LINKS = [
-  { to: '/currency-rates', label: 'Currency rates' },
+  { to: '/', label: 'Dashboard', icon: DashboardSquare01Icon },
+  { to: '/currency-rates', label: 'Currency rates', icon: MoneyExchange01Icon },
 ];
 
-export default function Sidebar({ show, onOpen, onClose }) {
+function SidebarLinks({ onPick }) {
+  return (
+    <Nav className="flex-column sidebar-links">
+      {LINKS.map((link) => (
+        <Nav.Link key={link.to} as={NavLink} to={link.to} end onClick={onPick}>
+          <HugeiconsIcon icon={link.icon} size={20} />
+          <span>{link.label}</span>
+        </Nav.Link>
+      ))}
+    </Nav>
+  );
+}
+
+export default function Sidebar({ show, onClose }) {
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <>
-      <div className="sidebar-rail d-none d-md-flex">
-        <button type="button" className="sidebar-toggle" onClick={onOpen} aria-label="Open menu">
-          <HugeiconsIcon icon={ArrowRightDoubleIcon} size={18} />
-        </button>
+      <div className="sidebar-rail d-none d-md-block">
+        <div className={expanded ? 'sidebar-panel expanded' : 'sidebar-panel'}>
+          {expanded && (
+            <div className="sidebar-panel-content">
+              <SidebarLinks onPick={() => setExpanded(false)} />
+              <div className="mt-auto">
+                <LogoutModal />
+              </div>
+            </div>
+          )}
+
+          <button
+            type="button"
+            className="sidebar-toggle sidebar-panel-toggle"
+            onClick={() => setExpanded(!expanded)}
+            aria-label={expanded ? 'Close menu' : 'Open menu'}
+          >
+            <HugeiconsIcon icon={expanded ? ArrowLeftDoubleIcon : ArrowRightDoubleIcon} size={18} />
+          </button>
+        </div>
       </div>
 
       <Offcanvas show={show} onHide={onClose} className="sidebar" data-bs-theme="dark">
@@ -24,13 +62,7 @@ export default function Sidebar({ show, onOpen, onClose }) {
         </Offcanvas.Header>
 
         <Offcanvas.Body className="sidebar-body">
-          <Nav className="flex-column">
-            {LINKS.map((link) => (
-              <Nav.Link key={link.to} as={NavLink} to={link.to} onClick={onClose}>
-                {link.label}
-              </Nav.Link>
-            ))}
-          </Nav>
+          <SidebarLinks onPick={onClose} />
 
           <div className="mt-auto">
             <LogoutModal />

@@ -1,19 +1,26 @@
 import { useEffect, useState } from 'react';
-import { Alert, Button } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { HugeiconsIcon } from '@hugeicons/react';
-import { ArrowDown01Icon } from '@hugeicons/core-free-icons';
+import { ArrowDown01Icon, MoneyReceiveSquareIcon, MoneySendSquareIcon } from '@hugeicons/core-free-icons';
 import { apiFetch, todayString } from '../services/helpers';
 import { currencySymbol, formatMoney } from '../services/currencies';
 import ExpenseFormModal from './ExpenseFormModal';
 import ExpenseListModal from './ExpenseListModal';
 import IncomeFormModal from './IncomeFormModal';
+import LoadingCard from './LoadingCard';
 import './DayScroller.css';
 function BigRemaining({ day, symbol }) {
+  const amount = Number(day.remaining);
+  // e.g. 30.5 becomes "30" and "50"
+  const [whole, cents] = Math.abs(amount).toFixed(2).split('.');
+
   return (
-    <div className="day-big">
-      <div className="day-big-amount">{formatMoney(day.remaining, symbol)}</div>
-      <div className="day-muted">remaining</div>
+    <div className={amount < 0 ? 'big-remaining negative' : 'big-remaining'}>
+      <span className="big-remaining-currency">{symbol}</span>
+      <span className="big-remaining-whole">{amount < 0 ? '-' : ''}{whole}</span>
+      <span className="big-remaining-cents">.{cents}</span>
+      <span className="big-remaining-label">remaining</span>
     </div>
   );
 }
@@ -27,9 +34,15 @@ function DayExpenses({ expenses, symbol, isToday, onAddExpense, onAddIncome, onO
     <div className="day-actions">
       {/* The user can only add expenses for today */}
       {isToday && (
-        <div className="d-flex gap-2 justify-content-center">
-          <Button variant="outline-light" size="sm" onClick={onAddExpense}>Expense</Button>
-          <Button variant="outline-light" size="sm" onClick={onAddIncome}>Income</Button>
+        <div className="day-action-buttons">
+          <button type="button" className="day-action day-action-expense" onClick={onAddExpense}>
+            <HugeiconsIcon icon={MoneySendSquareIcon} size={26} />
+            <span>Expense</span>
+          </button>
+          <button type="button" className="day-action day-action-income" onClick={onAddIncome}>
+            <HugeiconsIcon icon={MoneyReceiveSquareIcon} size={26} />
+            <span>Income</span>
+          </button>
         </div>
       )}
 
@@ -39,7 +52,10 @@ function DayExpenses({ expenses, symbol, isToday, onAddExpense, onAddIncome, onO
 
       {latestExpenses.map((expense) => (
         <div key={expense.id} className="day-expense-row">
-          <span>{expense.category_name}</span>
+          <span className="day-expense-title">
+            <span>{expense.name.length > 50 ? expense.name.slice(0, 50) + '...' : expense.name}</span>
+            <span className="day-expense-tag">{expense.category_name}</span>
+          </span>
           <span className="day-expense-amount">{formatMoney(-Number(expense.amount_myr), symbol)}</span>
         </div>
       ))}
@@ -186,7 +202,11 @@ export default function DayScroller({ token, currency }) {
   }, [selectedDayId]);
 
   if (loading) {
-    return <p className="day-muted">Loading days...</p>;
+    return (
+      <div className="dashboard-message">
+        <LoadingCard text="Loading days..." />
+      </div>
+    );
   }
 
   // Shown in the selected column on desktop, and in the panel under the strip on mobile
@@ -203,7 +223,7 @@ export default function DayScroller({ token, currency }) {
 
   return (
     <>
-      {error && <Alert variant="danger">{error}</Alert>}
+      {error && <Alert variant="danger" className="dashboard-message">{error}</Alert>}
 
       {/* The row is reversed so the newest day is on the right
       and older months load in on the left when the user scrolls there */}
@@ -221,22 +241,28 @@ export default function DayScroller({ token, currency }) {
         {days.map((day) => {
           // Destructure each day's date into year, month and date
           const [year, month, date] = day.date.split('-').map(Number);
-          // Get the month's name in short form (ex: Nov)
-          const monthName = new Date(year, month - 1, date).toLocaleDateString('en-MY', { month: 'short' });
+          // Get the month's full name (ex: November)
+          const monthName = new Date(year, month - 1, date).toLocaleDateString('en-MY', { month: 'long' });
           // If a day is selected, set isSelected to true
           const isSelected = day.date === selectedDate;
           // Set to true for today
           const isToday = day.date === today;
 
+          let columnClass = 'day-column';
+          if (isSelected) {
+            columnClass += ' selected';
+          }
+          if (isToday) {
+            columnClass += ' today';
+          }
+
           return (
-            <div key={day.id} id={`day-${day.date}`} className={isSelected ? 'day-column selected' : 'day-column'}>
+            <div key={day.id} id={`day-${day.date}`} className={columnClass}>
               {/* Draw out each day in a list, and for the selected day, show a differently styled card */}
               {/* If selected, show some extra layouts, like a remaining amount for the day */}
-              {isSelected && (
-                <div className="d-none d-md-block">
-                  <BigRemaining day={day} symbol={symbol} />
-                </div>
-              )}
+              <div className="day-top d-none d-md-flex">
+                {isSelected && <BigRemaining day={day} symbol={symbol} />}
+              </div>
               {/* Colour code the remaining amount, red for negative */}
               <div className={Number(day.remaining) < 0 ? 'day-amount negative' : 'day-amount'}>
                 {formatMoney(day.remaining, symbol)}
@@ -245,7 +271,7 @@ export default function DayScroller({ token, currency }) {
               <button type="button" className="day-box" onClick={() => selectDay(day.date)}>
                 {date}
               </button>
-              <div className="day-month">{isToday ? 'Today' : monthName}</div>
+              <div className={isToday ? 'day-month today-label' : 'day-month'}>{isToday ? 'Today' : monthName}</div>
 
               {isSelected && <div className="d-none d-md-block w-100">{selectedExpenses}</div>}
 

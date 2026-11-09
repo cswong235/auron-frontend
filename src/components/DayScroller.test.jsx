@@ -17,10 +17,10 @@ const days = [
   { id: 2, date: '2026-11-02', remaining: '-5.00' },
 ]
 const todaysExpenses = [
-  { id: 14, category_name: 'Food', amount_myr: '4.00' },
-  { id: 13, category_name: 'Transportation', amount_myr: '3.00' },
-  { id: 12, category_name: 'Bills', amount_myr: '2.00' },
-  { id: 11, category_name: 'Shopping', amount_myr: '1.00' },
+  { id: 14, name: 'Noodles', category_name: 'Food', amount_myr: '4.00' },
+  { id: 13, name: 'Bus fare', category_name: 'Transportation', amount_myr: '3.00' },
+  { id: 12, name: 'Phone bill', category_name: 'Bills', amount_myr: '2.00' },
+  { id: 11, name: 'Socks', category_name: 'Shopping', amount_myr: '1.00' },
 ]
 
 beforeEach(() => {
@@ -60,7 +60,21 @@ test("shows only today's 3 newest expenses", async () => {
   expect(await screen.findAllByText('Food')).toHaveLength(2)
   expect(screen.getAllByText('Transportation')).toHaveLength(2)
   expect(screen.getAllByText('Bills')).toHaveLength(2)
+  expect(screen.getAllByText('Noodles')).toHaveLength(2)
   expect(screen.queryByText('Shopping')).toBeNull()
+})
+
+test('cuts long expense names off after 50 characters', async () => {
+  const longName = 'Dinner with the whole team after the quarterly planning meeting'
+  apiFetch.mockImplementation(async (path) => {
+    if (path === '/daily-budgets?month=2026-11-01') return days
+    if (path === '/expenses?day_id=3') return [{ id: 1, name: longName, category_name: 'Food', amount_myr: '40.00' }]
+    return []
+  })
+  render(<DayScroller token="fake-token" currency="MYR" />)
+
+  expect(await screen.findAllByText(longName.slice(0, 50) + '...')).toHaveLength(2)
+  expect(screen.queryByText(longName)).toBeNull()
 })
 
 test('picking another day selects it and loads its expenses', async () => {
@@ -69,6 +83,8 @@ test('picking another day selects it and loads its expenses', async () => {
   fireEvent.click(screen.getByRole('button', { name: '2' }))
 
   expect(columnOf('2').className).toContain('selected')
+  expect(columnOf('3').className).toContain('today')
+  expect(columnOf('3').className).not.toContain('selected')
   await waitFor(() => expect(apiFetch).toHaveBeenCalledWith('/expenses?day_id=2', { token: 'fake-token' }))
   // Expenses can only be added on today
   expect(screen.queryByText('Expense')).toBeNull()

@@ -4,6 +4,7 @@ import { apiFetch } from '../services/helpers';
 import { CURRENCIES } from '../services/currencies';
 import { useAuth } from '../context/AuthContext';
 import CurrencyConverter from '../components/CurrencyConverter';
+import LoadingCard from '../components/LoadingCard';
 import './CurrencyRates.css';
 
 export default function CurrencyRates() {
@@ -45,7 +46,7 @@ export default function CurrencyRates() {
   return (
     <>
       <h1 className="rates-title">Currency rates</h1>
-      {loading && <p>Loading rates...</p>}
+      {loading && <LoadingCard text="Loading rates..." />}
       {error && <Alert variant="danger">{error}</Alert>}
 
       {!loading && !error && (

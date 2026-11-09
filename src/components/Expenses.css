@@ -4,7 +4,7 @@
 
 .expense-label {
   margin-bottom: 8px;
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 14px;
 }
 
@@ -23,21 +23,26 @@
   width: 100%;
   height: 100%;
   padding: 14px;
-  border: 2px solid #e3e3ea;
+  border: 1px solid var(--glass-border);
   border-radius: 14px;
-  background: #fff;
-  color: var(--auron-text);
+  background: var(--glass-bg);
+  color: #fff;
   text-align: center;
 }
 
 .expense-option span {
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 13px;
 }
 
+.expense-option:hover:not(:disabled) {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
 .expense-option.selected {
-  border-color: var(--auron-blue);
-  background: rgba(74, 144, 194, 0.08);
+  border-color: #7fc1f0;
+  background: rgba(74, 144, 194, 0.2);
+  box-shadow: 0 0 0 3px rgba(74, 144, 194, 0.25), 0 10px 24px -12px rgba(127, 193, 240, 0.7);
 }
 
 .expense-option:disabled {
@@ -55,8 +60,9 @@
 .expense-card {
   margin-bottom: 8px;
   padding: 10px 12px;
-  border: 1px solid #e3e3ea;
+  border: 1px solid var(--glass-border);
   border-radius: 12px;
+  background: var(--glass-bg);
   overflow-wrap: anywhere;
 }
 
@@ -76,20 +82,21 @@
 .expense-tag {
   margin-left: 6px;
   padding: 1px 6px;
-  border: 1px solid var(--auron-muted);
+  border: 1px solid rgba(74, 144, 194, 0.6);
   border-radius: 6px;
-  color: var(--auron-muted);
+  background: rgba(74, 144, 194, 0.25);
+  color: #fff;
   font-size: 11px;
 }
 
 .expense-description {
   margin: 2px 0;
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 13px;
 }
 
 .expense-time {
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 12px;
 }
 
@@ -103,7 +110,7 @@
   padding: 2px;
   border: none;
   background: transparent;
-  color: var(--auron-text);
+  color: #fff;
 }
 
 /* Greyed out once the expense's day is over */

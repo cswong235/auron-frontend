@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter, Link, Navigate, Route, Routes, Outlet } from 'react-router-dom';
+import { BrowserRouter, Link, Navigate, Route, Routes, Outlet, useLocation } from 'react-router-dom';
 import { HugeiconsIcon } from '@hugeicons/react';
 import { Menu01Icon, UserIcon } from '@hugeicons/core-free-icons';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { apiFetch } from './services/helpers';
 import ProtectedRoute from './components/ProtectedRoute';
 import Sidebar from './components/Sidebar';
+import Aurora from './components/Aurora';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import UserProfile from './pages/UserProfile';
@@ -16,6 +17,9 @@ function Layout(){
   const { session } = useAuth();
   const [showMenu, setShowMenu] = useState(false);
 
+  const location = useLocation();
+  const isDashboard = location.pathname === '/';
+
   // When the app opens, make the backend fetch the rates if it hasn't yet today
   useEffect(() => {
     apiFetch('/exchange-rates', { token: session.access_token })
@@ -24,6 +28,10 @@ function Layout(){
 
   return(
     <div data-bs-theme="dark" className="app-layout">
+      <div className="app-background">
+        <Aurora colorStops={['#5227ff', '#466bf3', '#4a90c2']} amplitude={1} blend={0.5} height={0.9} brightness={1.5} direction="bottom" />
+      </div>
+
       <header className="app-header">
         <button type="button" className="icon-button d-md-none" onClick={() => setShowMenu(true)} aria-label="Open menu">
           <HugeiconsIcon icon={Menu01Icon} size={24} />
@@ -39,14 +47,16 @@ function Layout(){
       </header>
 
       <div className="app-body">
-        <Sidebar show={showMenu} onOpen={() => setShowMenu(true)} onClose={() => setShowMenu(false)} />
+        <Sidebar show={showMenu} onClose={() => setShowMenu(false)} />
 
-        <main className="app-main">
-          <Outlet/>
+        <main className={isDashboard ? 'app-main full-height' : 'app-main'}>
+          <div key={location.pathname} className="page-transition">
+            <Outlet/>
+          </div>
         </main>
       </div>
 
-      <footer>
+      <footer className="app-footer">
         Auron by Wong Chang Sheng, 2026
       </footer>
     </div>

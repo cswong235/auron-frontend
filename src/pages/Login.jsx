@@ -63,14 +63,12 @@ export default function Login() {
 
   return (
     <div className="login-page">
-      {/* Animated background behind the card */}
       <div className="login-background">
         <Aurora colorStops={['#4a90c2', '#8e7cc3', '#4a90c2']} amplitude={1} blend={0.5} />
       </div>
 
       <Card className="login-card">
         <Row className="g-0">
-          {/* Left half: logo, fields and buttons */}
           <Col md={6} className="login-form-side">
             <div className="login-logo">AURON</div>
             <h1 className="login-title">{mode === 'signup' ? 'Create an account' : 'Welcome back!'}</h1>
@@ -120,7 +118,6 @@ export default function Login() {
             </Button>
           </Col>
 
-          {/* Right half: picture, hidden on mobile */}
           <Col md={6} className="d-none d-md-block">
             <div className="login-image"></div>
           </Col>

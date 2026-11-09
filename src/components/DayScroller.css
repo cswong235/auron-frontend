@@ -5,6 +5,8 @@
   flex-direction: row-reverse;
   overflow-x: auto;
   color: #fff;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
 /* Each day takes a fifth of the width, so 5 days fit on screen */
@@ -23,71 +25,209 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 16px 4px;
+  padding: 16px 8px;
   text-align: center;
 }
 
 .day-column.selected {
-  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--glass-border);
   border-radius: 16px;
+  background: linear-gradient(180deg, rgba(74, 144, 194, 0.18) 0%, rgba(142, 124, 195, 0.08) 45%, rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 60px -20px rgba(127, 193, 240, 0.45);
 }
 
 .day-amount {
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
+  width: 100px;
 }
 
-.day-amount.negative {
-  color: #e57373;
+.day-amount.negative,
+.big-remaining.negative {
+  color: #ff8a80;
 }
 
 .day-box {
   width: 56px;
   height: 56px;
   margin: 8px 0;
-  border: 1px solid var(--auron-muted);
-  border-radius: 12px;
-  background: transparent;
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
   color: #fff;
   font-size: 24px;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.day-box:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 10px 24px -10px rgba(127, 193, 240, 0.6);
 }
 
 .day-column.selected .day-box {
   border-color: var(--auron-blue);
-  background: var(--auron-blue);
+  background: rgba(74, 144, 194, 0.35);
+  box-shadow: 0 0 20px rgba(74, 144, 194, 0.5);
+}
+
+.day-column.today:not(.selected) .day-box {
+  border: 2px solid var(--auron-blue);
+  box-shadow: 0 0 12px rgba(74, 144, 194, 0.35);
 }
 
 .day-month {
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 13px;
 }
 
-.day-big-amount {
-  font-size: 36px;
-  font-weight: 600;
+.today-label {
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: var(--auron-gradient);
+  color: #fff;
+  font-weight: 500;
+  animation: pulse-ring 2.4s ease-out infinite;
+}
+
+.big-remaining {
+  display: inline-grid;
+  grid-template-areas:
+    "currency currency"
+    "whole cents"
+    "label label";
+  align-items: end;
+  line-height: 1;
+}
+
+.big-remaining-currency {
+  grid-area: currency;
+  justify-self: start;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 20px;
+}
+
+.big-remaining-whole {
+  grid-area: whole;
+  font-size: 96px;
+  font-weight: 300;
+}
+
+.big-remaining-cents {
+  grid-area: cents;
+  padding-bottom: 10px;
+  font-size: 30px;
+  font-weight: 300;
+}
+
+.big-remaining-whole,
+.big-remaining-cents {
+  background: linear-gradient(180deg, #ffffff 30%, #a9cdf0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 4px 24px rgba(127, 193, 240, 0.45));
+}
+
+.big-remaining.negative .big-remaining-whole,
+.big-remaining.negative .big-remaining-cents {
+  background: linear-gradient(180deg, #ffffff 10%, #ff8a80 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 4px 24px rgba(255, 138, 128, 0.45));
+}
+
+.big-remaining-label {
+  grid-area: label;
+  justify-self: end;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
 }
 
 .day-muted {
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 13px;
 }
 
 .day-actions {
+  width: 100%;
   margin-top: 16px;
 }
 
-/* One of the selected day's latest expenses */
+.day-action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.day-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 76px;
+  padding: 8px 4px;
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  background: var(--glass-bg);
+  color: #fff;
+  font-size: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.day-action:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.day-action-expense:hover {
+  border-color: rgba(255, 138, 128, 0.7);
+  box-shadow: 0 10px 24px -10px rgba(255, 138, 128, 0.8);
+}
+
+.day-action-income:hover {
+  border-color: rgba(120, 220, 170, 0.7);
+  box-shadow: 0 10px 24px -10px rgba(120, 220, 170, 0.8);
+}
+
 .day-expense-row {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   gap: 8px;
-  margin-top: 6px;
+  margin-top: 8px;
   font-size: 13px;
   text-align: left;
 }
 
+.day-expense-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.day-expense-tag {
+  padding: 0 6px;
+  border: 1px solid rgba(74, 144, 194, 0.6);
+  border-radius: 6px;
+  background: rgba(74, 144, 194, 0.25);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
 .day-expense-amount {
-  color: var(--auron-muted);
+  padding: 1px 8px;
+  border: 1px solid rgba(255, 138, 128, 0.45);
+  border-radius: 8px;
+  background: rgba(255, 138, 128, 0.12);
+  color: rgba(255, 255, 255, 0.9);
   white-space: nowrap;
 }
 
@@ -97,30 +237,67 @@
   padding: 4px;
   border: none;
   background: transparent;
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .day-loading {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--auron-muted);
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* Mobile panel under the strip */
 .day-details-mobile {
   margin-top: 16px;
   padding: 16px;
+  border: 1px solid var(--glass-border);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--glass-shadow);
   color: #fff;
   text-align: center;
 }
 
-/* Desktop: the selected day shows the big amount, so hide its small one */
+/* Desktop view */
 @media (min-width: 768px) {
+  .day-column {
+    min-height: var(--screen-height);
+    padding: 0 78px 24px;
+  }
+
+  .day-column.selected {
+    border-top: none;
+    border-bottom: none;
+    border-radius: 0;
+  }
+
+  .day-top {
+    width: 100%;
+    height: calc(var(--screen-height) * 0.38);
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 24px;
+  }
+
+  .day-box {
+    width: 72px;
+    height: 72px;
+    border-radius: 18px;
+    font-size: 30px;
+  }
+
+  /* The big amount replaces the small one, but the small one keeps its space so the boxes stay lined up */
   .day-column.selected .day-amount {
-    display: none;
+    visibility: hidden;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+  .big-remaining-whole {
+    font-size: 72px;
   }
 }
 
@@ -132,7 +309,16 @@
     font-size: 18px;
   }
 
-  .day-amount {
+  .day-amount,
+  .day-month {
     font-size: 11px;
+  }
+
+  .big-remaining-whole {
+    font-size: 64px;
+  }
+
+  .day-details-mobile {
+    flex: 1;
   }
 }
