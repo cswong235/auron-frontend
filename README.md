@@ -1,16 +1,31 @@
-# React + Vite
+# ![Auron logo](./src/assets/Auron.png)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A project built to help people stick to a daily budget and save their spare money.
 
-Currently, two official plugins are available:
+![Project Screenshot](./src/assets/MissionScreenshot.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Features include:
+- Login and registration with Supabase Auth
+- OAuth support to allow registration or logging in via Google
+- Monthly setup that turns a monthly allowance into a daily budget
+- Scrolling day strip that shows each day's remaining budget and latest expenses
+- Log, edit and delete expenses, either deducted from today or spread over the rest of the month
+- Log incomes, either added to today or spread over the rest of the month
+- Currency rates page with a currency converter, using daily rates from the Frankfurter API
+- User profile page
 
-## React Compiler
+Built with:
+- JavaScript (ES6)
+- PostgreSQL
+- React
+- HTML
+- CSS
+- Bootstrap
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Deployed with:
+- Vercel: For frontend and backend service
+  - Backend service can be found here: https://github.com/cswong235/auron-backend
+- Supabase: For database hosting
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Links
+- Vercel link: https://auronsaver.vercel.app/
