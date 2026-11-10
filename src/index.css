@@ -187,6 +187,17 @@ body {
   color: #fff;
 }
 
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 .btn {
   --bs-btn-border-radius: 12px;
   transition: transform 0.15s ease, box-shadow 0.2s ease, filter 0.2s ease;
