@@ -91,7 +91,6 @@
   border-radius: 50%;
   background: var(--glass-bg);
   backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
   color: #fff;
   transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }

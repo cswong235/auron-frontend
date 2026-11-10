@@ -129,7 +129,6 @@ body {
   border-radius: 24px;
   background: var(--glass-dark-bg);
   backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: var(--glass-shadow);
 }
 
@@ -141,7 +140,6 @@ body {
   --bs-card-cap-bg: rgba(255, 255, 255, 0.04);
   --bs-card-color: #fff;
   backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: var(--glass-shadow);
 }
 
@@ -155,7 +153,6 @@ body {
   background-color: rgba(255, 255, 255, 0.06);
   color: #fff;
   backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
   transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 

@@ -26,7 +26,6 @@
   border-radius: 32px;
   background: var(--glass-dark-bg);
   backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
   box-shadow: var(--glass-shadow), 0 30px 80px -30px rgba(0, 0, 0, 0.7);
   color: #fff;
 }
